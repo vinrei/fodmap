@@ -1,11 +1,31 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
+
+// const foods = []
+
+const foods = Array.from({ length: 30 }, (_, index) => index + 1);
+
+// const items = [];
+// for (let i = 1; i <= 30; i++) {
+//   items.push(i);
+// }
+
+const FodmapTile = (props) => {
+  return (
+    <View style={styles.tile} key={props.number}>
+      <Text style={styles.tileText}>Tile {props.number}</Text>
+    </View>
+  )
+}
 
 export default function App() {
   return (
-    <ScrollView style={styles.container}>
-        <Text style={styles.heading}>Scrollable Tiles</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <Text style={styles.heading}>Hello Josie!</Text>
         <View style={styles.elementsContainer} >
-          <View style={styles.tile}>
+          {foods.map((num) => (<FodmapTile number={num} key={num}/>))}
+          {/* <FodmapTile number={3} /> */}
+          {/* <View style={styles.tile}>
             <Text style={styles.tileText}>Tile 1</Text>
           </View>
           <View style={styles.tile}>
@@ -34,9 +54,10 @@ export default function App() {
           </View>
           <View style={styles.tile}>
             <Text style={styles.tileText}>Tile 10</Text>
-          </View>
+          </View> */}
       </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -44,6 +65,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    height: 'fit-content',
+    paddingTop:  Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android status bar
 
   },
   elementsContainer: {
