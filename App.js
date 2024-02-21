@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+
   },
   elementsContainer: {
     flex: 1,
@@ -54,7 +53,10 @@ const styles = StyleSheet.create({
     // marginLeft: 24,
     // marginRight: 24,
     // marginBottom: 24,
-    flexDirection:'row'
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   heading: {
     fontSize: 24,
