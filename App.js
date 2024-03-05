@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar }
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+import {fruits}  from './Fruit'
+
 // Prevent native splash screen from autohiding before App component declaration
 SplashScreen.preventAutoHideAsync()
   .then((result) => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
@@ -12,7 +14,7 @@ SplashScreen.preventAutoHideAsync()
 
 // const foods = []
 
-const foods = Array.from({ length: 30 }, (_, index) => index + 1);
+// const foods = Array.from({ length: 30 }, (_, index) => index + 1);
 
 // const items = [];
 // for (let i = 1; i <= 30; i++) {
@@ -21,8 +23,8 @@ const foods = Array.from({ length: 30 }, (_, index) => index + 1);
 
 const FodmapTile = (props) => {
   return (
-    <View style={styles.tile} key={props.number}>
-      <Text style={styles.tileText}>Tile {props.number}</Text>
+    <View style={styles.tile}>
+      <Text style={styles.tileText}>{props.name}</Text>
     </View>
   )
 }
@@ -39,38 +41,7 @@ export default function App() {
       <ScrollView>
         <Text style={styles.heading}>Hello Josie!</Text>
         <View style={styles.elementsContainer} >
-          {foods.map((num) => (<FodmapTile number={num} key={num}/>))}
-          {/* <FodmapTile number={3} /> */}
-          {/* <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 1</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 2</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 3</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 4</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 5</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 6</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 7</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 8</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 9</Text>
-          </View>
-          <View style={styles.tile}>
-            <Text style={styles.tileText}>Tile 10</Text>
-          </View> */}
+          {fruits.map((fruit) => (<FodmapTile name={fruit.name} number={fruit.key} key={fruit.key}/>))}
       </View>
       </ScrollView>
     </SafeAreaView>
@@ -107,7 +78,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tile: {
-    width: 100,
+    width: 150,
     height: 100,
     backgroundColor: 'lightblue',
     borderRadius: 10,
