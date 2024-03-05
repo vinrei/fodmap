@@ -1,4 +1,14 @@
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+
+// Prevent native splash screen from autohiding before App component declaration
+SplashScreen.preventAutoHideAsync()
+  .then((result) => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
+  .catch(console.warn); // it's good to explicitly catch and inspect any error
+
+
+
 
 // const foods = []
 
@@ -18,6 +28,12 @@ const FodmapTile = (props) => {
 }
 
 export default function App() {
+  useEffect(() => {
+    // Hides native splash screen after 2s
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 2000);
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -64,7 +80,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#D8E2DC',
     alignItems: 'center',
     height: 'fit-content',
     paddingTop:  Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android status bar
@@ -72,7 +88,7 @@ const styles = StyleSheet.create({
   },
   elementsContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#D8E2DC',
     width:'100%',
     // marginLeft: 24,
     // marginRight: 24,
@@ -105,24 +121,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-// import { StatusBar } from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// export default function App() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Open up App.js to start working on your app!</Text>
-//       <StatusBar style="auto" />
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
