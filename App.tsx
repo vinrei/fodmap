@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar }
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import React from 'react';
+import Modal from "react-native-modal";
+import { Avatar, Button, Card, Text as PaperText, ToggleButton } from 'react-native-paper';
 
 import {fruits}  from './Fruit'
 
@@ -12,15 +14,7 @@ SplashScreen.preventAutoHideAsync()
 
 
 
-
-// const foods = []
-
-// const foods = Array.from({ length: 30 }, (_, index) => index + 1);
-
-// const items = [];
-// for (let i = 1; i <= 30; i++) {
-//   items.push(i);
-// }
+  const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 const FodmapTile = (props) => {
   return (
@@ -30,6 +24,48 @@ const FodmapTile = (props) => {
   )
 }
 
+const detailStyles = StyleSheet.create({
+  modal: {
+    margin: 0,
+  },
+  view: {
+    justifyContent: 'flex-end',
+    margin: 0,
+    flex: 1
+  },
+});
+
+function WrapperComponent({closeCallback, isVisible}:{closeCallback: () => void, isVisible: boolean}) {
+  return (
+    <View>
+      <Modal 
+        isVisible={isVisible} 
+        style={detailStyles.modal} 
+        animationInTiming={350} 
+        swipeDirection={['down']}
+        animationOutTiming={600}
+        useNativeDriverForBackdrop
+      >
+        <View style={detailStyles.view}>
+          <Text>I am the modal content! Where are you??</Text>
+          <Card>
+            <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
+            <Card.Content>
+              <PaperText variant="titleLarge">Card title</PaperText>
+              <PaperText variant="bodyMedium">Card content</PaperText>
+            </Card.Content>
+            <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+            <Card.Actions>
+              <Button onPress={closeCallback}>Cancel</Button>
+              <Button>Ok</Button>
+            </Card.Actions>
+          </Card>
+        </View>
+      </Modal>
+    </View>
+  );
+}
+
 export default function App() {
   useEffect(() => {
     // Hides native splash screen after 2s
@@ -37,14 +73,25 @@ export default function App() {
       await SplashScreen.hideAsync();
     }, 2000);
   }, []);
+  const [status, setStatus] = React.useState('checked' as 'checked'|'unchecked');
+  const onButtonToggle = value => {
+    setStatus(status === 'checked' ? 'unchecked' : 'checked');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.heading}>Hello Josie!</Text>
+        <Text style={styles.heading}>Hello Josiee!</Text>
         <View style={styles.elementsContainer} >
           {fruits.map((fruit) => (<FodmapTile name={fruit.name} number={fruit.key} key={fruit.key}/>))}
-      </View>
+          <ToggleButton 
+          icon="bluetooth"
+          value="bluetooth"
+          status={status}
+          onPress={onButtonToggle}/>
+        </View>
+        <WrapperComponent isVisible={status === 'checked'} closeCallback={() => setStatus('unchecked')}/>
       </ScrollView>
+      
     </SafeAreaView>
   );
 }
