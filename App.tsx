@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import React from 'react';
 
 import {fruits}  from './Fruit'
 
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D8E2DC',
     alignItems: 'center',
-    height: 'fit-content',
+    height: 'fit-content' as any,
     paddingTop:  Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android status bar
 
   },
