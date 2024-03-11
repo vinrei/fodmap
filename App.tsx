@@ -2,19 +2,16 @@ import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar }
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import React from 'react';
-import Modal from "react-native-modal";
-import { Avatar, Button, Card, Text as PaperText, ToggleButton } from 'react-native-paper';
+import { Avatar, ToggleButton } from 'react-native-paper';
 
 import {fruits}  from './Fruit'
+import DetailView from './src/DetailModal';
 
 // Prevent native splash screen from autohiding before App component declaration
 SplashScreen.preventAutoHideAsync()
   .then((result) => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
   .catch(console.warn); // it's good to explicitly catch and inspect any error
 
-
-
-  const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 const FodmapTile = (props) => {
   return (
@@ -24,48 +21,6 @@ const FodmapTile = (props) => {
   )
 }
 
-const detailStyles = StyleSheet.create({
-  modal: {
-    margin: 0,
-  },
-  view: {
-    justifyContent: 'flex-end',
-    margin: 0,
-    flex: 1
-  },
-});
-
-function WrapperComponent({closeCallback, isVisible}:{closeCallback: () => void, isVisible: boolean}) {
-  return (
-    <View>
-      <Modal 
-        isVisible={isVisible} 
-        style={detailStyles.modal} 
-        animationInTiming={350} 
-        swipeDirection={['down']}
-        animationOutTiming={600}
-        useNativeDriverForBackdrop
-      >
-        <View style={detailStyles.view}>
-          <Text>I am the modal content! Where are you??</Text>
-          <Card>
-            <Card.Title title="Card Title" subtitle="Card Subtitle" left={LeftContent} />
-            <Card.Content>
-              <PaperText variant="titleLarge">Card title</PaperText>
-              <PaperText variant="bodyMedium">Card content</PaperText>
-            </Card.Content>
-            <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-            <Card.Actions>
-              <Button onPress={closeCallback}>Cancel</Button>
-              <Button>Ok</Button>
-            </Card.Actions>
-          </Card>
-        </View>
-      </Modal>
-    </View>
-  );
-}
-
 export default function App() {
   useEffect(() => {
     // Hides native splash screen after 2s
@@ -73,14 +28,14 @@ export default function App() {
       await SplashScreen.hideAsync();
     }, 2000);
   }, []);
-  const [status, setStatus] = React.useState('checked' as 'checked'|'unchecked');
-  const onButtonToggle = value => {
+  const [status, setStatus] = React.useState('unchecked' as 'checked'|'unchecked');
+  const onButtonToggle = () => {
     setStatus(status === 'checked' ? 'unchecked' : 'checked');
   };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.heading}>Hello Josiee!</Text>
+        <Text style={styles.heading}>Fodmap Helper</Text>
         <View style={styles.elementsContainer} >
           {fruits.map((fruit) => (<FodmapTile name={fruit.name} number={fruit.key} key={fruit.key}/>))}
           <ToggleButton 
@@ -89,7 +44,7 @@ export default function App() {
           status={status}
           onPress={onButtonToggle}/>
         </View>
-        <WrapperComponent isVisible={status === 'checked'} closeCallback={() => setStatus('unchecked')}/>
+        <DetailView isVisible={status === 'checked'} closeCallback={() => setStatus('unchecked')}/>
       </ScrollView>
       
     </SafeAreaView>
@@ -109,9 +64,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#D8E2DC',
     width:'100%',
-    // marginLeft: 24,
-    // marginRight: 24,
-    // marginBottom: 24,
     flexDirection:'row',
     flexWrap: 'wrap',
     alignItems: 'center',
@@ -130,7 +82,6 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: 'lightblue',
     borderRadius: 10,
-    // padding: 10,
     margin: 10,
     alignItems: 'center',
     justifyContent: 'center',
