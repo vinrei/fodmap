@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Platform, StatusBar, Pressable } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import React from 'react';
 import { Avatar, ToggleButton } from 'react-native-paper';
 
-import {fruits}  from './Fruit'
+import {fruits, Food}  from './Fruit'
 import DetailView from './src/DetailModal';
+import { COLOURS } from './src/theme';
 
 // Prevent native splash screen from autohiding before App component declaration
 SplashScreen.preventAutoHideAsync()
@@ -13,11 +14,11 @@ SplashScreen.preventAutoHideAsync()
   .catch(console.warn); // it's good to explicitly catch and inspect any error
 
 
-const FodmapTile = (props) => {
+const FodmapTile = (props: {onPressCallback: () => void, food: Food}) => {
   return (
-    <View style={styles.tile}>
-      <Text style={styles.tileText}>{props.name}</Text>
-    </View>
+    <Pressable style={styles.tile} onPress={() => props.onPressCallback()}>
+      <Text style={styles.tileText}>{props.food.name}</Text>
+    </Pressable>
   )
 }
 
@@ -28,33 +29,33 @@ export default function App() {
       await SplashScreen.hideAsync();
     }, 2000);
   }, []);
-  const [status, setStatus] = React.useState('unchecked' as 'checked'|'unchecked');
-  const onButtonToggle = () => {
-    setStatus(status === 'checked' ? 'unchecked' : 'checked');
-  };
+  const [selectedFood, setSelectedFood] = React.useState<Food|undefined>(undefined);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Text style={styles.heading}>Fodmap Helper</Text>
         <View style={styles.elementsContainer} >
-          {fruits.map((fruit) => (<FodmapTile name={fruit.name} number={fruit.key} key={fruit.key}/>))}
-          <ToggleButton 
-          icon="bluetooth"
-          value="bluetooth"
-          status={status}
-          onPress={onButtonToggle}/>
+          {fruits.map((fruit) => (
+              <FodmapTile
+                food={fruit}
+                key={fruit.key} 
+                onPressCallback={() => {console.log('aa' + fruit); setSelectedFood(fruit)}}
+              />
+          ))}
         </View>
-        <DetailView isVisible={status === 'checked'} closeCallback={() => setStatus('unchecked')}/>
+        <DetailView isVisible={!!selectedFood} closeCallback={() => setSelectedFood(undefined)} food={selectedFood}/>
       </ScrollView>
       
     </SafeAreaView>
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#D8E2DC',
+    backgroundColor: COLOURS.primary,
     alignItems: 'center',
     height: 'fit-content' as any,
     paddingTop:  Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android status bar
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
   elementsContainer: {
     flex: 1,
-    backgroundColor: '#D8E2DC',
+    backgroundColor: COLOURS.primary,
     width:'100%',
     flexDirection:'row',
     flexWrap: 'wrap',
