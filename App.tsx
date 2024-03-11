@@ -30,6 +30,7 @@ export default function App() {
     }, 2000);
   }, []);
   const [selectedFood, setSelectedFood] = React.useState<Food|undefined>(undefined);
+  const [prevSelectedFood, setPrevSelectedFood] = React.useState<Food|undefined>(undefined);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -39,25 +40,23 @@ export default function App() {
               <FodmapTile
                 food={fruit}
                 key={fruit.key} 
-                onPressCallback={() => {console.log('aa' + fruit); setSelectedFood(fruit)}}
+                onPressCallback={() => {setSelectedFood(fruit); setPrevSelectedFood(fruit)}}
               />
           ))}
         </View>
-        <DetailView isVisible={!!selectedFood} closeCallback={() => setSelectedFood(undefined)} food={selectedFood}/>
+        <DetailView isVisible={!!selectedFood} closeCallback={() => setSelectedFood(undefined)} food={selectedFood||prevSelectedFood}/>
       </ScrollView>
       
     </SafeAreaView>
   );
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOURS.primary,
     alignItems: 'center',
-    height: 'fit-content' as any,
+    // height: 'fit-content' as any,
     paddingTop:  Platform.OS === 'android' ? StatusBar.currentHeight : 0, // Add padding for Android status bar
 
   },

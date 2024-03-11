@@ -24,9 +24,7 @@ const detailStyles = StyleSheet.create({
   });
 
 export default function DetailView({ closeCallback, isVisible, food }: { closeCallback: () => void; isVisible: boolean; food: Food | undefined}) {
-    console.log(food);
   return (
-    <View>
       <Modal
         isVisible={isVisible}
         style={detailStyles.modal}
@@ -34,6 +32,8 @@ export default function DetailView({ closeCallback, isVisible, food }: { closeCa
         swipeDirection={['down']}
         animationOutTiming={600}
         useNativeDriverForBackdrop
+        statusBarTranslucent
+        backdropOpacity={0.5}
       >
         <View style={detailStyles.view}>
           <Card style= {{backgroundColor: COLOURS.primary}}>
@@ -54,6 +54,5 @@ export default function DetailView({ closeCallback, isVisible, food }: { closeCa
           </Card>
         </View>
       </Modal>
-    </View>
   );
 }
