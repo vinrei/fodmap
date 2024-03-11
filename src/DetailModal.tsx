@@ -30,10 +30,14 @@ export default function DetailView({ closeCallback, isVisible, food }: { closeCa
         style={detailStyles.modal}
         animationInTiming={350}
         swipeDirection={['down']}
-        animationOutTiming={600}
+        animationOutTiming={250}
         useNativeDriverForBackdrop
         statusBarTranslucent
         backdropOpacity={0.5}
+        onBackdropPress={closeCallback}
+        onSwipeComplete={closeCallback}
+        hideModalContentWhileAnimating={false}
+        // backdropTransitionOutTiming={0}
       >
         <View style={detailStyles.view}>
           <Card style= {{backgroundColor: COLOURS.primary}}>
