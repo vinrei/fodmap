@@ -1,12 +1,13 @@
 export interface Food {
   name: string,
-  key: number
+  key: number,
+  image?: object,
 }
 
 export const fruits: Food[] = [
     { name: "Apple", key: 1 },
     { name: "Banana", key: 2 },
-    { name: "Orange", key: 3 },
+    { name: "Orange", key: 3, image: require("../assets/foods/orange.png") },
     { name: "Mango", key: 4 },
     { name: "Pineapple", key: 5 },
     { name: "Grape", key: 6 },

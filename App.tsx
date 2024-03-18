@@ -38,6 +38,8 @@ export default function App() {
         <Text style={styles.heading}>Fodmap Helper</Text>
         <View style={styles.elementsContainer} >
           <FoodTile food={fruits.at(2)} />
+          <FoodTile food={fruits.at(2)} />
+          <FoodTile food={fruits.at(2)} />
         </View>
         <View style={styles.elementsContainer} >
           {fruits.map((fruit) => (
