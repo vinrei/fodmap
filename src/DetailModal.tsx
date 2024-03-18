@@ -3,25 +3,24 @@ import { View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { Button, Card, Text as PaperText, Avatar } from "react-native-paper";
 import ReactNativeModal from 'react-native-modal';
-import { Food } from "../Fruit";
-import { COLOURS } from "./theme";
+import { Food } from "./Fruit";
+import { COLOURS } from "./constants";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
+
 const detailStyles = StyleSheet.create({
-    modal: {
-      margin: 0,
-    },
-    view: {
-      justifyContent: 'flex-end',
-    //   margin: 0,
-      flex: 1,
-    //   backgroundColor: COLOURS.primary
-    },
-    card: {
-        padding: 16,
-    }
-  });
+  modal: {
+    margin: 0,
+  },
+  view: {
+    justifyContent: 'flex-end',
+    flex: 1,
+  },
+  card: {
+      padding: 16,
+  }
+});
 
 export default function DetailView({ closeCallback, isVisible, food }: { closeCallback: () => void; isVisible: boolean; food: Food | undefined}) {
   return (

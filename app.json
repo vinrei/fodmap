@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
-    "version": "1.0.0",
+    "name": "FodMate",
+    "slug": "fodmap",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vinrei.fodmap"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "61692d77-c709-42d2-acc5-ed5b928ed6ee"
+      }
     }
   }
 }
