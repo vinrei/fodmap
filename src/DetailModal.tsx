@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { Button, Card, Text as PaperText, Avatar } from "react-native-paper";
 import ReactNativeModal from 'react-native-modal';
-import { Food } from "./Fruit";
+import { Food } from "./foods";
 import { COLOURS } from "./constants";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />

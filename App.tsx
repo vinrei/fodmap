@@ -4,10 +4,10 @@ import { useEffect } from 'react';
 import React from 'react';
 import { Avatar, ToggleButton } from 'react-native-paper';
 
-import {fruits, Food}  from './src/Fruit'
 import DetailView from './src/DetailModal';
 import { COLOURS } from './src/constants';
 import FoodTile from './src/FoodTile';
+import { Food, foods } from './src/foods';
 
 // Prevent native splash screen from autohiding before App component declaration
 SplashScreen.preventAutoHideAsync()
@@ -37,12 +37,12 @@ export default function App() {
       <ScrollView>
         <Text style={styles.heading}>Fodmap Helper</Text>
         <View style={styles.elementsContainer} >
-          <FoodTile food={fruits.at(2)} />
-          <FoodTile food={fruits.at(2)} />
-          <FoodTile food={fruits.at(2)} />
+          <FoodTile food={foods.at(2)} />
+          <FoodTile food={foods.at(0)} />
+          <FoodTile food={foods.at(2)} />
         </View>
         <View style={styles.elementsContainer} >
-          {fruits.map((fruit) => (
+          {foods.map((fruit) => (
               <FodmapTile
                 food={fruit}
                 key={fruit.key} 

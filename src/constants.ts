@@ -4,4 +4,9 @@ export enum COLOURS {
     fodmapMedium = '#FDB623',
     fodmapLow = '#4CBB17'
   }
-  
+
+export enum FodmapLevel {
+    high = 'high',
+    medium = 'medium',
+    low = 'low'
+  }  

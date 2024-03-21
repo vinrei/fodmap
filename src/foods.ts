@@ -1,13 +1,17 @@
+import { FodmapLevel } from "./constants";
+
 export interface Food {
   name: string,
   key: number,
   image?: object,
+  colour?: string,
+  overallFodmapLevel?: FodmapLevel,
 }
 
-export const fruits: Food[] = [
-    { name: "Apple", key: 1 },
+export const foods: Food[] = [
+    { name: "Apple", key: 1, image: require("../assets/foods/apple.jpeg"), colour: '#AA150D', overallFodmapLevel: FodmapLevel.high },
     { name: "Banana", key: 2 },
-    { name: "Orange", key: 3, image: require("../assets/foods/orange.png") },
+    { name: "Orange", key: 3, image: require("../assets/foods/orange.png") , colour: '#FF9052', overallFodmapLevel: FodmapLevel.low },
     { name: "Mango", key: 4 },
     { name: "Pineapple", key: 5 },
     { name: "Grape", key: 6 },

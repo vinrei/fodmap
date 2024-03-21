@@ -1,18 +1,23 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
-import { Food } from './Fruit';
+import hexRgb from 'hex-rgb';
+
+import { Food } from './foods';
+import { COLOURS, FodmapLevel } from './constants';
 
 interface FoodTileProps {
     food: Food;
 }
 
 const FoodTile: React.FC<FoodTileProps> = ({ food }) => {
+    const fodmapColour = food.overallFodmapLevel === FodmapLevel.high ? COLOURS.fodmapHigh : food.overallFodmapLevel === FodmapLevel.medium ? COLOURS.fodmapMedium : COLOURS.fodmapLow;
+    const foodColour = hexRgb(food.colour);
     return (
         <View style={styles.container}>
             <Image source={food.image} style={styles.image} />
-            <View style={styles.subtitleContainer}>
+            <View style={[styles.subtitleContainer, {backgroundColor: `rgba(${foodColour.red}, ${foodColour.green}, ${foodColour.blue}, 0.2)`}]}>
                 <Text style={styles.subtitle}>{food.name}</Text>
-                <View style={styles.fodSquare}/>
+                {food.overallFodmapLevel && <View style={[styles.fodSquare, {backgroundColor: fodmapColour}]}/>}
             </View>
         </View>
     );
@@ -51,7 +56,6 @@ const styles = StyleSheet.create({
         // fontFamily: 'open-sans', todo add this font for offline
     },
     fodSquare: { 
-        backgroundColor: '#4CBB17', 
         opacity: 0.95,
         width: 25, 
         height: 25, 
