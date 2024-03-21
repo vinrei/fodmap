@@ -17,8 +17,8 @@ SplashScreen.preventAutoHideAsync()
 
 const FodmapTile = (props: {onPressCallback: () => void, food: Food}) => {
   return (
-    <Pressable style={styles.tile} onPress={() => props.onPressCallback()}>
-      <Text style={styles.tileText}>{props.food.name}</Text>
+    <Pressable onPress={() => props.onPressCallback()}>
+      <FoodTile food={props.food} />
     </Pressable>
   )
 }
@@ -36,11 +36,11 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Text style={styles.heading}>Fodmate</Text>
-        <View style={styles.elementsContainer} >
+        {/* <View style={styles.elementsContainer} >
           <FoodTile food={foods.at(0)} />
           <FoodTile food={foods.at(1)} />
           <FoodTile food={foods.at(2)} />
-        </View>
+        </View> */}
         <View style={styles.elementsContainer} >
           {foods.map((fruit) => (
               <FodmapTile
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginLeft: 20,
   },
   scrollContainer: {
     alignItems: 'center',
