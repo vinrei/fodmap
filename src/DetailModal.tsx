@@ -5,6 +5,7 @@ import { Button, Card, Text as PaperText, Avatar } from "react-native-paper";
 import ReactNativeModal from 'react-native-modal';
 import { Food } from "./foods";
 import { COLOURS } from "./constants";
+import FoodTile from "./FoodTile";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
@@ -17,9 +18,27 @@ const detailStyles = StyleSheet.create({
     justifyContent: 'flex-end',
     flex: 1,
   },
-  card: {
-      padding: 16,
-  }
+  handle: {
+    alignSelf: 'center',
+    width: 40,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    marginVertical: 8,
+  },
+  content: {
+    backgroundColor: COLOURS.primary,
+  },
+  view2: {
+    flexDirection: 'row',
+    marginBottom: 16,
+  },
+  halfWidthContainer: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // height: 100,
+  },
 });
 
 export default function DetailView({ closeCallback, isVisible, food }: { closeCallback: () => void; isVisible: boolean; food: Food | undefined}) {
@@ -39,20 +58,28 @@ export default function DetailView({ closeCallback, isVisible, food }: { closeCa
         // backdropTransitionOutTiming={0}
       >
         <View style={detailStyles.view}>
-          <Card style= {{backgroundColor: COLOURS.primary}}>
+          <Card style={detailStyles.content}>
+            <View style={detailStyles.handle} />
             {food ? (
-                <React.Fragment>
-                    <Card.Title titleVariant="titleLarge" title={food.name} subtitle="Card Subtitle" />
-                    {/* <Card.Content> */}
-                    {/* <PaperText variant="bodyMedium">Card content</PaperText> */}
-                    {/* </Card.Content> */}
-                    <Card.Cover style= {{padding: 16, backgroundColor: COLOURS.primary}} source={food.image} />
-                </React.Fragment>
+              <React.Fragment>
+                <Card.Title 
+                  titleStyle={{fontSize: 28, fontWeight: 'bold'}}
+                  titleVariant="titleLarge" 
+                  title={food.name} 
+                  subtitle="Navel, Peeled, Raw"
+                  subtitleStyle={{fontSize: 18, color: '#8492A6'}}
+                />
+                <View style={detailStyles.view2}>
+                  <View style={detailStyles.halfWidthContainer}>
+                    {/* Content for the first half-width container */}
+                      <FoodTile food={food} includeDetails={false} />
+                  </View>
+                  <View style={detailStyles.halfWidthContainer}>
+                    {/* Content for the second half-width container */}
+                  </View>
+                </View>
+              </React.Fragment>
             ) : null}
-            <Card.Actions>
-              {/* <Button onPress={closeCallback}>Cancel</Button> */}
-              <Button onPress={closeCallback}>Ok</Button>
-            </Card.Actions>
           </Card>
         </View>
       </Modal>

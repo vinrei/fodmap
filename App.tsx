@@ -17,9 +17,11 @@ SplashScreen.preventAutoHideAsync()
 
 const FodmapTile = (props: {onPressCallback: () => void, food: Food}) => {
   return (
-    <Pressable onPress={() => props.onPressCallback()}>
-      <FoodTile food={props.food} />
-    </Pressable>
+    <View style={styles.tile}>
+      <Pressable onPress={() => props.onPressCallback()}>
+        <FoodTile food={props.food} />
+      </Pressable>
+    </View>
   )
 }
 
@@ -85,16 +87,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tile: {
-    width: 150,
-    height: 100,
-    backgroundColor: 'lightblue',
-    borderRadius: 10,
-    margin: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tileText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+    padding: 12,
+  }
 });

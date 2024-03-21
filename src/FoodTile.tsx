@@ -7,18 +7,21 @@ import { COLOURS, FodmapLevel } from './constants';
 
 interface FoodTileProps {
     food: Food;
+    includeDetails?: boolean;
 }
 
-const FoodTile: React.FC<FoodTileProps> = ({ food }) => {
+const FoodTile: React.FC<FoodTileProps> = ({ food, includeDetails = true }) => {
     const fodmapColour = food.overallFodmapLevel === FodmapLevel.high ? COLOURS.fodmapHigh : food.overallFodmapLevel === FodmapLevel.medium ? COLOURS.fodmapMedium : COLOURS.fodmapLow;
     const foodColour = hexRgb(food.colour);
     return (
         <View style={styles.container}>
             <Image source={food.image} style={[styles.image, { borderColor: food.colour }]} />
-            <View style={[styles.subtitleContainer, {backgroundColor: `rgba(${foodColour.red}, ${foodColour.green}, ${foodColour.blue}, 0.3)`}]}>
-                <Text style={styles.subtitle}>{food.name}</Text>
-                {food.overallFodmapLevel && <View style={[styles.fodSquare, {backgroundColor: fodmapColour}]}/>}
-            </View>
+            {includeDetails && 
+                <View style={[styles.subtitleContainer, {backgroundColor: `rgba(${foodColour.red}, ${foodColour.green}, ${foodColour.blue}, 0.3)`}]}>
+                    <Text style={styles.subtitle}>{food.name}</Text>
+                    {food.overallFodmapLevel && <View style={[styles.fodSquare, {backgroundColor: fodmapColour}]}/>}
+                </View>
+            }
         </View>
     );
 };
@@ -28,13 +31,13 @@ const styles = StyleSheet.create({
         minWidth: 120,
         width: 150,
         height: 170,
-        margin: 10,
+        // margin: 12,
     },
     image: {
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
-        borderRadius: 20,
+        borderRadius: 10,
         borderWidth: 1,
     },
     subtitleContainer: {
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         padding: 10,
-        borderRadius: 20,
+        borderRadius: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
