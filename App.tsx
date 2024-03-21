@@ -35,10 +35,10 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={styles.heading}>Fodmap Helper</Text>
+        <Text style={styles.heading}>Fodmate</Text>
         <View style={styles.elementsContainer} >
-          <FoodTile food={foods.at(2)} />
           <FoodTile food={foods.at(0)} />
+          <FoodTile food={foods.at(1)} />
           <FoodTile food={foods.at(2)} />
         </View>
         <View style={styles.elementsContainer} >
