@@ -17,6 +17,13 @@ export function getFodmapColour(fodmapLevel: FodmapLevel) {
     return fodmapLevel === FodmapLevel.high ? COLOURS.fodmapHigh : fodmapLevel === FodmapLevel.medium ? COLOURS.fodmapMedium : COLOURS.fodmapLow;
 }
 
+function mixColours(color1: number[], color2: number[], ratio: number) {
+    const r = Math.round(color1[0] * ratio + color2[0] * (1 - ratio));
+    const g = Math.round(color1[1] * ratio + color2[1] * (1 - ratio));
+    const b = Math.round(color1[2] * ratio + color2[2] * (1 - ratio));
+    return [r, g, b];
+  }
+
 interface FoodTileProps {
     food: Food;
     includeDetails?: boolean;
@@ -25,12 +32,15 @@ interface FoodTileProps {
 const FoodTile: React.FC<FoodTileProps> = ({ food, includeDetails = true }) => {
     const fodmapColour = getFodmapColour(food.overallFodmapLevel);
     const foodColour = hexRgb(food.colour);
+    const foodColourRBG = [foodColour.red, foodColour.green, foodColour.blue]; 
+    const whiteRGB = [255, 255, 255]; 
+    const mixedColor = mixColours(foodColourRBG, whiteRGB, 0.15);
     return (
         <View style={[styles.container, { borderColor: food.colour }]}>
             <Image source={food.image} style={styles.image} />
             {includeDetails && 
                 <LinearGradient
-                    colors={['rgba(255,255,255,1)', 'transparent']}
+                    colors={[`rgba(${mixedColor[0]},${mixedColor[1]},${mixedColor[2]},1)`, 'transparent']}
                     style={styles.subtitleContainer}
                     start={{ x: 0.5, y: 1 }}
                     end={{ x: 0.5, y: 0 }}
