@@ -5,7 +5,7 @@ import { Button, Card, Text as PaperText, Avatar } from "react-native-paper";
 import ReactNativeModal from 'react-native-modal';
 import { Food } from "./foods";
 import { COLOURS } from "./constants";
-import FoodTile from "./FoodTile";
+import FoodTile, { fodSquareDefaultStyles, getFodmapColour } from "./FoodTile";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
@@ -39,6 +39,7 @@ const detailStyles = StyleSheet.create({
     alignItems: 'center',
     // height: 100,
   },
+  fodSquare: fodSquareDefaultStyles,
 });
 
 export default function DetailView({ closeCallback, isVisible, food }: { closeCallback: () => void; isVisible: boolean; food: Food | undefined}) {
@@ -68,6 +69,9 @@ export default function DetailView({ closeCallback, isVisible, food }: { closeCa
                   title={food.name} 
                   subtitle="Navel, Peeled, Raw"
                   subtitleStyle={{fontSize: 18, color: '#8492A6'}}
+                  right={
+                    (props) => <View style={[detailStyles.fodSquare, {backgroundColor: getFodmapColour(food.overallFodmapLevel), width: 40, height: 40, marginRight: 16}]}/>
+                  }
                 />
                 <View style={detailStyles.view2}>
                   <View style={detailStyles.halfWidthContainer}>
